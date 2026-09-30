@@ -34,6 +34,9 @@ int	binary_search(const int *arr, const int size, const int target_value) {
 	int left = 0;
 	int right = size - 1;
 
+	if (arr == NULL)
+		return (NOT_FOUND);
+
 	while (left <= right) {
 		int mid = left + (right - left) / 2;
 		if (arr[mid] == target_value)
