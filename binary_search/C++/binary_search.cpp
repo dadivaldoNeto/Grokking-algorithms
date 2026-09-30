@@ -26,6 +26,11 @@ ForwardIt binary_search(ForwardIt begin, ForwardIt end, const T& value) {
 	return (end);
 }
 
+/***
+ * V2: 
+ * 		Abordagem por Saltos (ou Busca por Tamanho de Passo/Passo Monótono) 
+ ***/
+
 int main() {
     std::vector<int> vec = {10, 20, 30, 40, 50, 60, 70};
 
