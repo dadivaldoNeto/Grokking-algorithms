@@ -7,7 +7,7 @@
 
 .section .rodata
 	msg:
-		.asciz "Hello, world!\n"
+		.asciz "Hello, world, by Dadivaldo!\n"
 	len = . - msg
 
 .text
