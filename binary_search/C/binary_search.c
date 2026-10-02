@@ -26,7 +26,7 @@
 			if (index != NOT_FOUND)\
 				printf("Value "#value" is in the array\n");\
 			else\
-				printf("Value "#value" is not in the array\n");\
+				printf("** Value "#value" is not in the array **\n");\
 		}\
 
 
@@ -58,12 +58,19 @@ int main(void) {
 		arr[i - 1] = i;
 	
 	int index = binary_search(arr, N, 4);
+	printf("Looking for number 4\n");
 	print(4, index)
 	
 	index = binary_search(arr, N, 12);
+	printf("Looking for number 12\n");
 	print(12, index)
 	
+	printf("Looking for number 2\n");
 	index = binary_search(arr, N, 2);
 	print(2, index)
+
+	printf("Looking for number 22\n");
+	index = binary_search(arr, N, 22);
+	print(22, index)
 	return (0);
 }

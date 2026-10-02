@@ -23,47 +23,51 @@ _binary_search:
 	xor r10, r10
 	
 	mov r11d, edx
-	
 
 	sub rsp, ALLOC_INT # allocate an int called left
 	sub rsp, ALLOC_INT # allocate an int called right
 
-	mov DWORD PTR [rsp], esi
-	dec DWORD PTR [rsp]
-	
 	sub rsp, ALLOC_INT # allocate a int called result
 
-	lea r9, DWORD PTR [rsp + LEFT]
-	lea r10, DWORD PTR [rsp + RIGHT]
+	lea r9, [rsp]
+	add r9, LEFT
+	mov DWORD PTR [r9], 0 # left = 10
+
+	lea r10, [rsp]
+	add r10, RIGHT
+	dec esi
+	mov DWORD PTR [r10], esi # right  size - 1
+
 	mov DWORD PTR [rsp + RESULT], -1
 
 	start_loop:
 		mov eax, DWORD PTR [r10]
-		cmp eax, DWORD PTR [r9] # left <= right
+		cmp DWORD PTR [r9], eax # left <= right
 		jg end_loop
 
 		sub eax, DWORD PTR [r9] # right - left
 		
-		mov ecx, 2
-		idiv ecx # previous result / 2 
+		sar eax, 1 # right / 2
 
-		add eax, DWORD PTR [r9] # previous result + left
+		add eax, DWORD PTR [r9] # right + left
 		
 		mov DWORD PTR [r10], eax
 		cmp DWORD PTR [rdi + rax*INT_SIZE], r11d # if arr[mid] == target
-		mov DWORD PTR [rsp + RESULT], eax
-		je end_loop
-
-		jg update_right
-		
-		inc eax
-		mov DWORD PTR [r9], eax
-		jmp start_loop
+		je equal_val 
+		jg greater_than_target # if arr[mid] > target
+		# ; if arr[mid] < target
+		less_than_target:
+			inc eax
+			mov DWORD PTR [r9], eax
+			jmp start_loop
 	
-	update_right:
+	greater_than_target:
 		dec eax
 		mov DWORD PTR [r10], eax
 		jmp start_loop
+
+	equal_val:
+		mov DWORD PTR [rsp + RESULT], eax
 
 	end_loop:
 		xor rax, rax
